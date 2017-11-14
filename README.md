@@ -4,7 +4,10 @@
 
 先看两张图：
 
-
+<figure>
+    <img src="https://github.com/zhongfei246/iOS--hash256-/blob/master/%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6%E5%8E%8B%E7%BC%A9/images/123.png" width="300" align="center"/>
+    <img src="https://github.com/zhongfei246/iOS--hash256-/blob/master/%E8%A7%86%E9%A2%91%E5%BD%95%E5%88%B6%E5%8E%8B%E7%BC%A9/images/456.png" width="300" align="center"/>
+</figure>
 
 ## 主要功能模块（Contents）
 
