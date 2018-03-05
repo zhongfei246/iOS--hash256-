@@ -26,6 +26,8 @@
 	<string>we use your Microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We use your photo library</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We user your data</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

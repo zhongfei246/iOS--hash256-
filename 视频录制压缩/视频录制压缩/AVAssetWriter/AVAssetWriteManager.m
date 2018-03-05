@@ -68,6 +68,17 @@
             _outputSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width);
             break;
     }
+    
+    //解决录制的视频屏幕绿边
+    /**
+     因为使用MPEG-2和MPEG-4（和其他基于DCT的编解码器），压缩被应用于16×16像素宏块的网格。使用MPEG-4第10部分（AVC / H.264），4和8的倍数也是有效的，但16是最有效的。
+     
+     如果水平或垂直尺寸不能被16整除，那么编码器在右边缘或下边缘用合适数量的黑色”悬垂“样本贴图，这些样本在解码时被丢弃。例如，当在1920x1080编码HDTV时，编码器将8行黑色像素附加到h e eimage阵列，使行数为1088。如果播放器/编解码器在解码时丢弃那些“悬垂”样本，可能会出现我所说的绿线。
+     */
+    CGFloat outputSizeWidth = floor(_outputSize.width / 16) * 16;
+    CGFloat outputSizeHeight = floor(_outputSize.height / 16) * 16;
+    _outputSize = CGSizeMake(outputSizeWidth, outputSizeHeight);
+    
     _writeQueue = dispatch_queue_create("com.5miles", DISPATCH_QUEUE_SERIAL);
     _recordTime = 0;
     
@@ -288,11 +299,11 @@
                                              AVVideoMaxKeyFrameIntervalKey : @(30),
                                              AVVideoProfileLevelKey : AVVideoProfileLevelH264BaselineAutoLevel };
     
-    //视频属性
+    //视频属性 self.outputSize.height*2 扩大写入的视频流范围：录制输出视频体积大小确定的情况下，里面像素越多越清晰，乘以2使一定体积内的像素翻倍
     self.videoCompressionSettings = @{ AVVideoCodecKey : AVVideoCodecH264,
                                        AVVideoScalingModeKey : AVVideoScalingModeResizeAspectFill,
-                                       AVVideoWidthKey : @(self.outputSize.height),
-                                       AVVideoHeightKey : @(self.outputSize.width),
+                                       AVVideoWidthKey : @(self.outputSize.height*2),
+                                       AVVideoHeightKey : @(self.outputSize.width*2),
                                        AVVideoCompressionPropertiesKey : compressionProperties };
 
     _assetWriterVideoInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo outputSettings:self.videoCompressionSettings];

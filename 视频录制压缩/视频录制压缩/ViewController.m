@@ -106,6 +106,8 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    
     //计算hash256
     NSURL *imgurl = [info objectForKey:UIImagePickerControllerReferenceURL];
     if (imgurl) {//说明是从相册选择出来的视频进来的代理方法
